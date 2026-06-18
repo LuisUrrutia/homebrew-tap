@@ -1,0 +1,36 @@
+name: Update Raycast Beta
+
+on:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: raycast-beta-pr-automation
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Open update PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Run Raycast Beta automation tests
+        run: bash tests/check-raycast-beta.sh
+
+      - name: Validate Raycast Beta cask syntax
+        run: ruby -c Casks/raycast@beta.rb
+
+      - name: Open or update Raycast Beta PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: bash scripts/automate-raycast-beta-pr.sh
