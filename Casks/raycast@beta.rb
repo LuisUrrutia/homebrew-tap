@@ -1,6 +1,6 @@
 cask "raycast@beta" do
-  version "0.68.0.0,c991260b0f"
-  sha256 "183da265e04152145b91b2da030d4426d94e94116a78c1d40ddccd524d43c4ed"
+  version "0.69.0.0,76da0f08ae"
+  sha256 "d1017ca3c7d4125ec2c819df29310c68403876c49a0a8fcc893c4a1f9fb67ebf"
 
   url "https://x-r2.raycast-releases.com/Raycast_Beta_#{version.csv.first}_#{version.csv.second}_arm64.dmg",
       verified: "x-r2.raycast-releases.com/"
